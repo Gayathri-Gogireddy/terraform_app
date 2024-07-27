@@ -48,6 +48,10 @@ jobs:
         run: |
           echo "[]" > repos.json
           
+      - name: Populate Repos JSON
+        run: |
+          echo "${{ toJSON(steps.apply.outputs.repos) }}" > repos.json
+          
       - name: Process Applications
         run: |
           echo "${{ toJSON(steps.create-repos.outputs.repos) }}" > repos.json
