@@ -1,10 +1,10 @@
 applications = [
   {
-    name        = "app3"
+    name        = "app1"
     description = "First Application"
   },
   {
-    name        = "app4"
+    name        = "app2"
     description = "Second Application"
   }
 ]
