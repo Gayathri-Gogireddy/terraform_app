@@ -7,6 +7,12 @@ resource "github_repository" "repos" {
   for_each    = { for app in var.applications : app.name => app }
   name        = each.value.name
   description = each.value.description
-  visibility  = "private"
+  visibility  = "public"
   auto_init   = true
+}
+output "repos" {
+  value = [for repo in github_repository.repos : {
+    name        = repo.name
+    description = repo.description
+  }]
 }
