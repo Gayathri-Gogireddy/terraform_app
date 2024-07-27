@@ -36,11 +36,20 @@ jobs:
            terraform output -json repos > repos.json
            # Print the content to check it
            cat repos.json
+      - name: Upload repos.json as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: repos-json
+          path: repos.json
 
   setup-repos:
     needs: create-repos
     runs-on: ubuntu-latest
     steps:
+      - name: Download repos.json
+        uses: actions/download-artifact@v3
+        with:
+          name: repos-json
       - name: Checkout Source Repo
         uses: actions/checkout@v2
         with:
