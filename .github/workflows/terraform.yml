@@ -43,7 +43,11 @@ jobs:
         run: |
           git config --global user.email "gogireddy.gayathri2002@gmail.com"
           git config --global user.name "Gayathri-Gogireddy"
-
+          
+      - name: Initialize Repos JSON
+        run: |
+          echo "[]" > repos.json
+          
       - name: Process Applications
         run: |
           echo "${{ toJSON(steps.create-repos.outputs.repos) }}" > repos.json
