@@ -3,8 +3,8 @@ variable "github_token" {
   type        = string
 }
 
-variable "github_organization" {
-  description = "GitHub Organization Name"
+variable "github_username" {
+  description = "GitHub Username"
   type        = string
 }
 
