@@ -11,7 +11,7 @@ resource "github_repository" "repos" {
   auto_init   = true
 }
 
-utput "repos" {
+output "repos" {
   value = [
     for repo in github_repository.repos :
     {
