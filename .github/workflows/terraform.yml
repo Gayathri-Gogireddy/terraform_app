@@ -28,6 +28,11 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
         run: |
           terraform apply -auto-approve -var github_token=$GITHUB_TOKEN -var github_username=$GITHUB_USERNAME
+      
+      - name: Get Terraform Output
+        id: get_output
+        run: |
+          echo "REPOS=$(terraform output -json repos)" >> $GITHUB_ENV
 
   setup-repos:
     needs: create-repos
@@ -48,14 +53,18 @@ jobs:
           repos=${{ env.REPOS }}
           echo $repos | jq -c '.[]' | while read app; do
             app_name=$(echo $app | jq -r '.')
+
+            # Debug: Output repository name
+            echo "Processing repository: ${repo_name}"
             
             # Clone the newly created repo
             git clone https://github.com/${{ secrets.GH_USERNAME }}/${app_name}.git
             cd ${app_name}
-            
+            ls -la
             # Copy source code
             cp -r ../source-code/* .
-
+             ls -la
+             
             # Update GitHub Actions workflow
             sed -i "s/OLD_VARIABLE_NAME/${app_name}/g" .github/workflows/deploy.yml
 
