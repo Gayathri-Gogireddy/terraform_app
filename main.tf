@@ -11,6 +11,12 @@ resource "github_repository" "repos" {
   auto_init   = true
 }
 
-output "repos" {
-  value = github_repository.repos[*].name
+utput "repos" {
+  value = [
+    for repo in github_repository.repos :
+    {
+      name        = repo.name
+      description = repo.description
+    }
+  ]
 }
