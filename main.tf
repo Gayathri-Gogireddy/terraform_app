@@ -10,9 +10,7 @@ resource "github_repository" "repos" {
   visibility  = "public"
   auto_init   = true
 }
+
 output "repos" {
-  value = [for repo in github_repository.repos : {
-    name        = repo.name
-    description = repo.description
-  }]
+  value = github_repository.repos[*].name
 }
